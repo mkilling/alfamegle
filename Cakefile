@@ -2,9 +2,7 @@ sys: require "sys"
 fs: require "fs"
 coffee: require './lib/coffee/coffee-script'
 
-client_files: {"client/index.html": "out/index.html",
-               "client/client.coffee": "out/client.js",
-               "lib/jQuery-1.4.2.min.js": "out/jQuery-1.4.2.min.js"}
+client_files: {"client/client.coffee": "client/client.js"}
 
 task 'clean', 'clean output folder', ->
   for infile, outfile of client_files
