@@ -26,8 +26,8 @@ server.listen 8080
 
 json: JSON.stringify
 
-'''io.listen server, {
+io.listen server, {
   onClientConnect: (client) ->
     sys.puts "connected!"
     client.send json { buffer: "buffer" }
-}'''
+}
