@@ -24,10 +24,15 @@ server: http.createServer (req, res) ->
 
 server.listen 8080
 
-json: JSON.stringify
+tojson: JSON.stringify
+fromjson: JSON.parse
 
 io.listen server, {
   onClientConnect: (client) ->
     sys.puts "connected!"
-    client.send json { buffer: "buffer" }
+  
+  onClientMessage: (message, client) ->
+    sys.puts message
+    client.send message
+    client.broadcast message
 }
