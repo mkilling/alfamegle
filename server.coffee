@@ -27,12 +27,11 @@ server: http.createServer (req, res) ->
 
 server.listen 8080
 
-rooms: []
 clients: []
 find_partner: (client) ->
   for otherclient in clients when otherclient isnt client
     if not otherclient.room?
-      rooms.push put_into_room client1, client2
+      put_into_room client1, client2
       break
   
   setTimeout find_partner <- client, 200 unless client.room?
@@ -42,7 +41,6 @@ put_into_room: (clients...) ->
     client.room: clients
     client.send tojson {"type": "connect"}
     client.send_to_others: send_to_others <- client
-  clients
     
 send_to_others: (client, message) ->
   for otherclient in client.room when otherclient isnt client
