@@ -4,6 +4,9 @@ fs: require "fs"
 io: require "./lib/socket.io"
 sys: require "sys"
 
+tojson: JSON.stringify
+fromjson: JSON.parse
+
 send404: (res) ->
   res.writeHead 404
   res.write '404'
@@ -24,15 +27,46 @@ server: http.createServer (req, res) ->
 
 server.listen 8080
 
-tojson: JSON.stringify
-fromjson: JSON.parse
+rooms: []
+clients: []
+find_partner: (client) ->
+  for otherclient in clients when otherclient isnt client
+    if not otherclient.room?
+      rooms.push put_into_room client1, client2
+      break
+  
+  setTimeout find_partner <- client, 200 unless client.room?
+
+put_into_room: (clients...) ->
+  for client in clients
+    client.room: clients
+    client.send tojson {"type": "connect"}
+    client.send_to_others: send_to_others <- client
+  clients
+    
+send_to_others: (client, message) ->
+  for otherclient in client.room when otherclient isnt client
+    otherclient.send message
+    
+disconnect: (client) ->
+  for c in client.room
+    c.send tojson {"type": "disconnect"}
+    c.room: undefined
 
 io.listen server, {
   onClientConnect: (client) ->
     sys.puts "connected!"
+    clients.push client
   
   onClientMessage: (message, client) ->
     sys.puts message
-    client.send message
-    client.broadcast message
+    msg: fromjson message
+    switch msg.type
+      when "message"
+        client.send tojson {"type": "message", "you": true, "msg": msg.msg}
+        client.send_to_others tojson {"type": "message", "you": false, "msg": msg.msg}
+      when "wantdisconnect"
+        disconnect client
+      when "wantpartner"
+        find_partner client
 }
