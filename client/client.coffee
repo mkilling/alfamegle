@@ -1,4 +1,10 @@
 json: JSON.stringify
+ctr: window.webkitNotifications
+
+notify: ->
+  if ctr.checkPermission() is 0
+    notification: ctr.createNotification(null, "hello", "world")
+    notification.show()
 
 $(document).ready ->
   socket: new io.Socket null, {rememberTransport: false, port: 8080}
@@ -9,6 +15,10 @@ $(document).ready ->
 
   $('#disconnectbtn').click ->
     socket.send json {'type': 'disconnect'}
+    switch ctr?.checkPermission()
+      when 0 then notify()
+      when undefined then
+      else ctr.requestPermission notify
 
   $('#sendbtn').click ->
     socket.send json {'type': 'message', 'msg': $('#textarea').val()}
