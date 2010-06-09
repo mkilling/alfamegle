@@ -7,8 +7,8 @@ IMPORTANT! Clone recursively:
 	git clone [repo] --recursive
 
 You'll need
-	- CoffeeScript
-	- node.js
+- CoffeeScript
+- node.js
 
 Run:
 	cake build
