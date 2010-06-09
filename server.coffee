@@ -14,6 +14,7 @@ send404: (res) ->
 
 server: http.createServer (req, res) ->
   path: (url.parse req.url).pathname;
+  if path == "/" then path: "/index.html"
   filepath: __dirname + "/client" + path
   sys.puts filepath
   try
