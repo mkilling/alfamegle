@@ -1,3 +1,6 @@
+debug: require "./lib/node_debug/debug"
+debug.listen 8000
+
 http: require "http"
 url: require "url"
 fs: require "fs"
@@ -27,14 +30,16 @@ server: http.createServer (req, res) ->
 
 server.listen 8080
 
-clients: []
+all_clients: []
 find_partner: (client) ->
-  for otherclient in clients when otherclient isnt client
-    if not otherclient.room?
-      put_into_room client1, client2
-      break
-  
-  setTimeout find_partner <- client, 200 unless client.room?
+  if not client.room?
+    for otherclient in all_clients when otherclient isnt client
+      sys.puts otherclient
+      if not otherclient.room?
+        put_into_room client, otherclient
+        break
+
+    setTimeout (find_partner <- null, client), 200
 
 put_into_room: (clients...) ->
   for client in clients
@@ -54,7 +59,7 @@ disconnect: (client) ->
 io.listen server, {
   onClientConnect: (client) ->
     sys.puts "connected!"
-    clients.push client
+    all_clients.push client
   
   onClientMessage: (message, client) ->
     sys.puts message
