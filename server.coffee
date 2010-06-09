@@ -63,8 +63,9 @@ io.listen server, {
     msg: fromjson message
     switch msg.type
       when "message"
-        client.send tojson {"type": "message", "you": true, "msg": msg.msg}
-        client.send_to_others tojson {"type": "message", "you": false, "msg": msg.msg}
+        if client.room?
+          client.send tojson {"type": "message", "you": true, "msg": msg.msg}
+          client.send_to_others tojson {"type": "message", "you": false, "msg": msg.msg}
       when "wantdisconnect"
         disconnect client
       when "wantpartner"

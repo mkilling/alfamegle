@@ -9,3 +9,23 @@
 .announcement {
   font-color: black;
 }
+
+#chatwindow {
+  width: 100%;
+  height: 80%;
+  border: 1px solid;
+}
+
+#controls {
+  width: 100%;
+  height: 20%;
+}
+
+#controls > * {
+  float: left;
+  height: 50%;
+}
+
+#textarea {
+  width: 70%;
+}

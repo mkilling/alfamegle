@@ -11,8 +11,10 @@
 </head>
 <body>
     <div id="chatwindow"></div>
-    <div><input id="disconnectbtn" type="button" value="Disconnect"></input></div>
-    <div><textarea id="textarea"></textarea></div>
-    <div><input id="sendbtn" type="button" value="Send"></input></div>
+    <div id="controls">
+        <div><input id="disconnectbtn" type="button" value="Disconnect"></div>
+        <div><input type="text" id="textarea" onkeyup="if (event.keyCode === 13) $('#sendbtn').click();"></div>
+        <div><input id="sendbtn" type="submit" value="Send"></div>
+    </div>
 </body>
 </html>

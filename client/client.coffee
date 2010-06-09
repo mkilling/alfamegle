@@ -23,3 +23,4 @@ $(document).ready ->
 
   $('#sendbtn').click ->
     socket.send json {'type': 'message', 'msg': $('#textarea').val()}
+    $('#textarea').val("").focus()
