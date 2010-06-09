@@ -48,7 +48,7 @@ $(document).ready ->
   socket.addEvent 'message', (data) -> handle_message fromjson data
 
   $('#disconnectbtn').click ->
-    socket.send tojson {'type': 'disconnect'}
+    socket.send tojson {'type': 'wantdisconnect'}
 
   $('#sendbtn').click ->
     socket.send tojson {'type': 'message', 'msg': $('#textarea').val()}
