@@ -6,7 +6,7 @@ A cheap omegle clone, the result of me playing around with CoffeeScript and Sock
 IMPORTANT! Clone recursively:
 	git clone [repo] --recursive
 
-You'll need
+You'll need:
 + CoffeeScript
 + node.js
 
