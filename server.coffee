@@ -1,7 +1,7 @@
 http: require "http"
 url: require "url"
 fs: require "fs"
-io: require "./vendor/Socket.IO-node/socket.io"
+io: require "./vendor/Socket.IO-node/lib/socket.io"
 sys: require "sys"
 
 tojson: JSON.stringify
