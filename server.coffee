@@ -31,7 +31,6 @@ all_clients: []
 find_partner: (client) ->
   if not client.room?
     for otherclient in all_clients when otherclient isnt client
-      sys.puts otherclient
       if not otherclient.room?
         put_into_room client, otherclient
         break
@@ -42,7 +41,7 @@ put_into_room: (clients...) ->
   for client in clients
     client.room: clients
     client.send tojson {"type": "connect"}
-    client.send_to_others: send_to_others <- client
+    client.send_to_others: send_to_others <- null, client
     
 send_to_others: (client, message) ->
   for otherclient in client.room when otherclient isnt client
@@ -70,4 +69,7 @@ io.listen server, {
         disconnect client
       when "wantpartner"
         find_partner client
+        
+  onClientDisconnect: (client) ->
+    all_clients: c for c in all_clients when c isnt client
 }
