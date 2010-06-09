@@ -2,7 +2,7 @@ tojson: JSON.stringify
 fromjson: JSON.parse
 ctr: window.webkitNotifications
 
-controls: -> $("#controls > *")
+controls: -> $("#controls *")
 disable: (controls) -> controls.attr "disabled", "disabled"
 enable: (controls) -> controls.removeAttr "disabled"
 
