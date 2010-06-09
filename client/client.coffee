@@ -43,6 +43,7 @@ $(document).ready ->
     when 1, 2 then ctr.requestPermission notify
 
   socket: new io.Socket null, {rememberTransport: false, port: 8080}
+  console.log socket
   socket.connect()
   socket.send tojson {'type': 'wantpartner'}
   socket.addEvent 'message', (data) -> handle_message fromjson data
