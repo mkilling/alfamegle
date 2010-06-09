@@ -2,7 +2,7 @@ tojson: JSON.stringify
 fromjson: JSON.parse
 ctr: window.webkitNotifications
 
-controls: -> $("#controls").children()
+controls: -> $("#controls > *")
 disable: (controls) -> controls.attr "disabled", "disabled"
 enable: (controls) -> controls.removeAttr "disabled"
 
@@ -51,5 +51,6 @@ $(document).ready ->
     socket.send tojson {'type': 'wantdisconnect'}
 
   $('#sendbtn').click ->
-    socket.send tojson {'type': 'message', 'msg': $('#textarea').val()}
-    $('#textarea').val("").focus()
+    if $('#textarea').val().length > 0
+      socket.send tojson {'type': 'message', 'msg': $('#textarea').val()}
+      $('#textarea').val("").focus()
