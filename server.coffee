@@ -71,5 +71,6 @@ io.listen server, {
         find_partner client
         
   onClientDisconnect: (client) ->
+    disconnect client
     all_clients: c for c in all_clients when c isnt client
 }
