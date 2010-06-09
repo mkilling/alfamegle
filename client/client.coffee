@@ -2,40 +2,39 @@ tojson: JSON.stringify
 fromjson: JSON.parse
 ctr: window.webkitNotifications
 
-controls: -> 
-  $("#controls").children()
-  
-disable: (controls)->
-  controls.attr "disabled", "disabled"
-
-enable: (controls) ->
-  controls.removeAttr "disabled"
+controls: -> $("#controls").children()
+disable: (controls) -> controls.attr "disabled", "disabled"
+enable: (controls) -> controls.removeAttr "disabled"
 
 notify: (title, text)->
   if ctr.checkPermission() is 0
     notification: ctr.createNotification(null, title, text)
     notification.show()
 
-announce: (cssclass, text)->
-  new_msg: $("<div>").addClass(cssclass).text(text)
+announce: (text) ->
+  new_msg: $("<div>").addClass("announcement").text(text)
   $('#chatwindow').append new_msg
 
+message: (you, msg) ->
+  if not you then notify "Stranger", msg
+  prefix: if you then "You:" else "Stranger:"
+  prefix_class: if you then "mymessage" else "strangermessage"
+  
+  new_msg: $("<div>").addClass("announcement").
+              append($("<div>").text(prefix).addClass(prefix_class)).
+              append($("<div>").text(msg).addClass("message"))
+  $('#chatwindow').append new_msg
+  
 handle_message: (data) ->
   switch data.type
     when "connect"
       enable controls()
-      announce "announcement", "You're now chatting with a random stranger. Say hey!"
+      announce "You're now chatting with a random stranger. Say hey!"
     when "disconnect"
       disable controls()
-      announce "announcement", "disconnected :("
+      announce "disconnected :("
     when "message"
-      cssclass: "strangermessage"
-        
-      if data.you
-        cssclass: "mymessage"
-        notify "Stranger", data.msg
-        
-      announce cssclass, data.msg
+      message data.you, data.msg
 
 $(document).ready ->
   disable controls()

@@ -1,22 +1,35 @@
 .mymessage {
-  font-color: blue;
+  color: blue;
 }
 
 .strangermessage {
-  font-color: red;
+  color: red;
 }
 
 .announcement {
-  font-color: black;
+  padding: 5px 2px;
+  font-weight: bold;
+  clear: left;
+}
+
+.announcement > * {
+  float: left;
+}
+
+.message {
+  padding-left: 10px;
+  font-weight: normal;
 }
 
 #chatwindow {
   width: 100%;
   height: 80%;
   border: 1px solid;
+  font-family: Arial, sans-serif;
 }
 
 #controls {
+  padding-top: 20px;
   width: 100%;
   height: 20%;
 }
@@ -24,8 +37,4 @@
 #controls > * {
   float: left;
   height: 50%;
-}
-
-#textarea {
-  width: 70%;
 }
