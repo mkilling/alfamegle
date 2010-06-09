@@ -1,6 +1,3 @@
-debug: require "./lib/node_debug/debug"
-debug.listen 8000
-
 http: require "http"
 url: require "url"
 fs: require "fs"
