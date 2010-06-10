@@ -59,6 +59,7 @@ io.listen server, {
     all_clients.push client
   
   onClientMessage: (message, client) ->
+    sys.puts message
     msg: fromjson message
     switch msg.type
       when "message"
