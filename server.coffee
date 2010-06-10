@@ -26,7 +26,7 @@ server: http.createServer (req, res) ->
     sys.puts "404: " + filepath
     send404 res
 
-server.listen process.argv[2] or 80
+server.listen parseInt(process.argv[2] or "80", 10)
 
 all_clients: []
 find_partner: (client) ->
