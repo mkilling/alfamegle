@@ -49,9 +49,10 @@ send_to_others: (client, message) ->
     otherclient.send message
     
 disconnect: (client) ->
-  for c in client.room
-    c.send tojson {"type": "disconnect"}
-    c.room: undefined
+  if client.room?
+    for c in client.room
+      c.send tojson {"type": "disconnect"}
+      c.room: undefined
 
 io.listen server, {
   onClientConnect: (client) ->
