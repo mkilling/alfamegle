@@ -18,6 +18,7 @@ $ coffee server.coffee
 ## Requirements
 
 You'll need:
+
 * CoffeeScript
 * node.js
 
