@@ -8,12 +8,15 @@ IMPORTANT! Clone recursively:
 git clone [repo] --recursive
 ```
 
-You'll need:
-* CoffeeScript
-* node.js
+## How to use
 
-Run:
 ```
 cake build
 coffee server.coffee
 ```
+
+## Requirements
+
+You'll need:
+* CoffeeScript
+* node.js
