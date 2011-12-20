@@ -19,12 +19,12 @@ message: (you, msg) ->
   if not you then notify "Stranger", msg
   prefix: if you then "You:" else "Stranger:"
   prefix_class: if you then "mymessage" else "strangermessage"
-  
+
   new_msg: $("<div>").addClass("announcement").
               append($("<div>").text(prefix).addClass(prefix_class)).
               append($("<div>").text(msg).addClass("message"))
   $('#chatwindow').append new_msg
-  
+
 handle_message: (data) ->
   switch data.type
     when "connect"
@@ -38,7 +38,7 @@ handle_message: (data) ->
 
 $(document).ready ->
   disable controls()
-  
+
   switch ctr?.checkPermission()
     when 1, 2 then ctr.requestPermission notify
 
