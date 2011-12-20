@@ -43,11 +43,11 @@ put_into_room: (clients...) ->
     client.room: clients
     client.send tojson {"type": "connect"}
     client.send_to_others: send_to_others <- null, client
-    
+
 send_to_others: (client, message) ->
   for otherclient in client.room when otherclient isnt client
     otherclient.send message
-    
+
 disconnect: (client) ->
   if client.room?
     for c in client.room
@@ -57,7 +57,7 @@ disconnect: (client) ->
 io.listen server, {
   onClientConnect: (client) ->
     all_clients.push client
-  
+
   onClientMessage: (message, client) ->
     sys.puts message
     msg: fromjson message
@@ -70,7 +70,7 @@ io.listen server, {
         disconnect client
       when "wantpartner"
         find_partner client
-        
+
   onClientDisconnect: (client) ->
     disconnect client
     all_clients: c for c in all_clients when c isnt client
